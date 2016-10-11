@@ -26,7 +26,10 @@ if __name__ == '__main__':
         else:
             try:
                 text_uploaded = load_data(path_totext)
-                print(get_most_frequent_words(text_uploaded))
+                if text_uploaded:
+                    print(get_most_frequent_words(text_uploaded))
                 break
-            except IOError as e:
+            except FileNotFoundError as e:
                 print("Try better : {}" .format(e.args[1]))
+
+# 'C:\Users\Vadim\Desktop\TODO!.txt'
