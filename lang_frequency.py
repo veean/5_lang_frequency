@@ -12,7 +12,7 @@ def load_data(filepath):
 
 
 def get_most_frequent_words(text):
-    text = re.sub('[^0-9a-zA-Zа-яА-я]+', ' ', text)
+    text = re.sub('[^A-zА-я]+', ' ', text)
     tokens = text.lower().split(' ')
     words_to_show = 10
     most_frequent = collections.Counter(tokens).most_common(words_to_show)
