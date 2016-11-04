@@ -1,6 +1,7 @@
 import os
 import re
 import collections
+import sys
 
 
 def load_data(filepath):
@@ -13,26 +14,21 @@ def load_data(filepath):
 
 def get_most_frequent_words(text):
     text = re.sub('[^A-zА-я]+', ' ', text)
-    tokens = text.lower().split(' ')
+    text = text.lower().split(' ')
     words_to_show = 10
-    most_frequent = collections.Counter(tokens).most_common(words_to_show)
+    most_frequent = collections.Counter(text).most_common(words_to_show)
     return most_frequent
 
 
 if __name__ == '__main__':
-    while True:
+    if not sys.argv[1]:
+        print('Try again!')
+    else:
+        path_to_text = sys.argv[1]
         try:
-            path_totext = input('Enter filepath for txt file : ')
-            if not path_totext:
-                print('Try again!')
-            else:
-                try:
-                    text_uploaded = load_data(path_totext)
-                    if text_uploaded:
-                        print(get_most_frequent_words(text_uploaded))
-                    break
-                except FileNotFoundError as e:
-                    print("Try better : {}" .format(e.args[1]))
-        except KeyboardInterrupt as interrupt:
-            print("Stopping if you want... - {}".format(interrupt.args[1]))
-
+            text_uploaded = load_data(path_to_text)
+            if text_uploaded:
+                for element in get_most_frequent_words(text_uploaded):
+                    print('Word "{}" meets {} times '.format(element[0], element[1]))
+        except FileNotFoundError as e:
+            print("Try better : {}" .format(e.args[1]))
